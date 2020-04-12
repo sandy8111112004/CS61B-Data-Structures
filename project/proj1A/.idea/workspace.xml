@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="f14ebdb0-7234-46e4-933a-fbc728ed6bcd" name="Default Changelist" comment="" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ProjectId" id="1ZHaCdrmo9qFyWr0cgB2TiWeZ3h" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showExcludedFiles" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="project.structure.last.edited" value="SDKs" />
+    <property name="project.structure.proportion" value="0.0" />
+    <property name="project.structure.side.proportion" value="0.0" />
+    <property name="two.files.diff.last.used.file" value="$PROJECT_DIR$/LinkedListDeque.java" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\MingT\Desktop\code_farmer\online_course\Berkeley_Josh-Hug_CS61B_2019\project\proj1A" />
+    </key>
+  </component>
+  <component name="ServiceViewManager">
+    <option name="viewStates">
+      <list>
+        <serviceView>
+          <treeState>
+            <expand />
+            <select />
+          </treeState>
+        </serviceView>
+      </list>
+    </option>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="f14ebdb0-7234-46e4-933a-fbc728ed6bcd" name="Default Changelist" comment="" />
+      <created>1584498346038</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1584498346038</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="233" y="0" key="#Notifications" timestamp="1585368021409">
+      <screen x="0" y="0" width="1280" height="680" />
+    </state>
+    <state x="233" y="0" key="#Notifications/0.0.1280.680@0.0.1280.680" timestamp="1585368021409" />
+    <state x="91" y="0" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1584928011441">
+      <screen x="0" y="0" width="1280" height="680" />
+    </state>
+    <state x="91" y="0" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1280.680/2560.0.1360.728@0.0.1280.680" timestamp="1584928011441" />
+    <state x="366" y="141" key="#com.intellij.ide.util.TreeClassChooserDialog" timestamp="1584928010305">
+      <screen x="0" y="0" width="1280" height="680" />
+    </state>
+    <state x="366" y="141" key="#com.intellij.ide.util.TreeClassChooserDialog/0.0.1280.680/2560.0.1360.728@0.0.1280.680" timestamp="1584928010305" />
+    <state x="93" y="93" width="1093" height="493" key="DiffContextDialog" timestamp="1584928140686">
+      <screen x="0" y="0" width="1280" height="680" />
+    </state>
+    <state x="93" y="93" width="1093" height="493" key="DiffContextDialog/0.0.1280.680/2560.0.1360.728@0.0.1280.680" timestamp="1584928140686" />
+    <state x="93" y="93" width="1093" height="493" key="DiffContextDialog/0.0.1280.680@0.0.1280.680" timestamp="1584759493589" />
+    <state x="545" y="97" key="FileChooserDialogImpl" timestamp="1585367927759">
+      <screen x="0" y="0" width="1280" height="680" />
+    </state>
+    <state x="545" y="97" key="FileChooserDialogImpl/0.0.1280.680/2560.0.1360.728@0.0.1280.680" timestamp="1584927921536" />
+    <state x="545" y="97" key="FileChooserDialogImpl/0.0.1280.680@0.0.1280.680" timestamp="1585367927759" />
+    <state x="244" y="0" key="SettingsEditor" timestamp="1584498446505">
+      <screen x="0" y="0" width="1280" height="680" />
+    </state>
+    <state x="244" y="0" key="SettingsEditor/0.0.1280.680@0.0.1280.680" timestamp="1584498446505" />
+    <state x="0" y="0" key="com.intellij.ide.util.TipDialog" timestamp="1585167808078">
+      <screen x="0" y="0" width="1280" height="680" />
+    </state>
+    <state x="0" y="0" key="com.intellij.ide.util.TipDialog/0.0.1280.680@0.0.1280.680" timestamp="1585167808078" />
+    <state x="299" y="152" key="run.anything.popup" timestamp="1584922105244">
+      <screen x="0" y="0" width="1280" height="680" />
+    </state>
+    <state x="299" y="152" key="run.anything.popup/0.0.1280.680/2560.0.1360.728@0.0.1280.680" timestamp="1584922105244" />
+  </component>
+</project>
