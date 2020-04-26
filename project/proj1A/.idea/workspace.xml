@@ -1,13 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="f14ebdb0-7234-46e4-933a-fbc728ed6bcd" name="Default Changelist" comment="" />
+    <list default="true" id="f14ebdb0-7234-46e4-933a-fbc728ed6bcd" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/../proj1b/ArrayDeque.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../proj1b/Deque.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../proj1b/LinkedListDeque.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../.." />
+  </component>
   <component name="ProjectId" id="1ZHaCdrmo9qFyWr0cgB2TiWeZ3h" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showExcludedFiles" value="true" />
