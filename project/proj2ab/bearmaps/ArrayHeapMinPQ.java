@@ -10,8 +10,20 @@ public class ArrayHeapMinPQ<T> implements ExtrinsicMinPQ<T>{
     private ArrayList<PriorityNode> items;
     public ArrayHeapMinPQ(){ items = new ArrayList<>();}
     private int parent(int index){ return (index-1)/2;}
-    private int leftChild(int index){ return 2*index+1;}
-    private int rightChild(int index){ return 2*index+2;}
+    private int leftChild(int index){
+        if(2*index+1 <items.size()) {
+            return 2 * index + 1;
+        }else{
+            return -1;
+        }
+    }
+    private int rightChild(int index){
+        if(2*index+2 < items.size()) {
+            return 2 * index + 2;
+        }else{
+            return -1;
+        }
+    }
 
     private void swap(int index1, int index2){
         PriorityNode temp1 = items.get(index1);
@@ -24,6 +36,40 @@ public class ArrayHeapMinPQ<T> implements ExtrinsicMinPQ<T>{
             swap(index, parent(index));
             index = parent(index);
         }
+    }
+
+    private void sink(int index){
+        if(items.size()==0){
+            return;
+        }
+
+        PriorityNode rightNode;
+        PriorityNode leftNode;
+        if(rightChild(index)!= -1 && leftChild(index)!= -1) {
+            rightNode = items.get(rightChild(index));
+            leftNode = items.get(leftChild(index));
+        }else if(leftChild(index)!=-1){
+            leftNode = items.get(leftChild(index));
+            rightNode = null;
+        }else if(rightChild(index)!=-1){
+            rightNode = items.get(rightChild(index));
+            leftNode = null;
+        }else{
+            rightNode = null;
+            leftNode = null;
+        }
+
+        while(items.get(index).compareTo(rightNode) > 0 ||
+              items.get(index).compareTo(leftNode) > 0){
+            if(rightNode!= null && rightNode.compareTo(leftNode) <= 0){
+                swap(index,rightChild(index));
+                sink(rightChild(index));
+            }else{
+                swap(index,leftChild(index));
+                sink(leftChild(index));
+            }
+        }
+
     }
 
     //assume input item will never be null
@@ -48,15 +94,8 @@ public class ArrayHeapMinPQ<T> implements ExtrinsicMinPQ<T>{
         return items.get(index).getItem();
     }
 
-    public String printMinPQ(){
-        String[] printableArray = new String[items.size()];
-        for(int i=0;i<items.size();i++){
-            String temp;
-            PriorityNode tempNode = items.get(i);
-            temp = "(" + tempNode.getItem().toString() +","+ Double.toString(tempNode.getPriority())  + ")";
-            printableArray[i] = temp;
-        }
-        return Arrays.toString(printableArray);
+    public String printableMinPQ(){
+        return items.toString();
     }
 
     public void clear(){
@@ -72,10 +111,31 @@ public class ArrayHeapMinPQ<T> implements ExtrinsicMinPQ<T>{
         }
     }
 
-    //to be finished
-    public T removeSmallest(){return items.get(0).getItem(); }
+    @Override
+    public T removeSmallest(){
+        if(items.size()==0){
+            throw new NoSuchElementException("ArrayHeapMinPQ is empty");
+        }else {
+            T result = items.get(0).getItem();
+            swap(0,items.size()-1);
+            items.remove(items.size()-1);
+            sink(0);
+
+            return result;
+        }
+    }
+
+    @Override
     public int size(){return items.size();}
-    public void changePriority(T item, double priority){items.set(0, new PriorityNode(item, priority));}
+
+    //to be finished
+    public void changePriority(T item, double priority){
+        if(contains(item)){
+            items.get(items.indexOf(item)).setPriorityNode(priority);
+        }else{
+            throw new NoSuchElementException("The item is not in the ArrayHeapMinPQ");
+        }
+    }
 
     //set Node property
     private class PriorityNode implements Comparable<PriorityNode>{
@@ -109,6 +169,12 @@ public class ArrayHeapMinPQ<T> implements ExtrinsicMinPQ<T>{
             }else {
                 return ((PriorityNode) o).getItem().equals(this.getItem());
             }
+        }
+
+        @Override
+        public String toString(){
+            String result="";
+            return result.concat("(").concat(item.toString()).concat(",").concat(Double.toString(priority)).concat(")");
         }
 
         @Override
