@@ -9,7 +9,13 @@ public class ArrayHeapMinPQ<T> implements ExtrinsicMinPQ<T>{
 
     private ArrayList<PriorityNode> items;
     public ArrayHeapMinPQ(){ items = new ArrayList<>();}
-    private int parent(int index){ return (index-1)/2;}
+    private int parent(int index){
+        if((index-1)/2 <0){
+            return -1;
+        }else {
+            return (index - 1) / 2;
+        }
+    }
     private int leftChild(int index){
         if(2*index+1 <items.size()) {
             return 2 * index + 1;
@@ -32,6 +38,9 @@ public class ArrayHeapMinPQ<T> implements ExtrinsicMinPQ<T>{
     }
 
     private void swim(int index){
+        if(parent(index)<0){
+            return;
+        }
         while(items.get(index).compareTo(items.get(parent(index))) < 0){
             swap(index, parent(index));
             index = parent(index);
@@ -128,10 +137,17 @@ public class ArrayHeapMinPQ<T> implements ExtrinsicMinPQ<T>{
     @Override
     public int size(){return items.size();}
 
-    //to be finished
+    @Override
     public void changePriority(T item, double priority){
         if(contains(item)){
-            items.get(items.indexOf(item)).setPriorityNode(priority);
+            int targetInd=items.indexOf(new PriorityNode(item,0));
+            items.get(targetInd).setPriorityNode(priority);
+            if(items.get(targetInd).compareTo(items.get(parent(targetInd)))<0){
+                swim(targetInd);
+            }else if(items.get(targetInd).compareTo(items.get(rightChild(targetInd))) > 0 ||
+                     items.get(targetInd).compareTo(items.get(leftChild(targetInd))) > 0){
+                sink(targetInd);
+            }
         }else{
             throw new NoSuchElementException("The item is not in the ArrayHeapMinPQ");
         }

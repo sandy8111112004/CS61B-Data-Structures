@@ -133,12 +133,22 @@ public class ArrayHeapMinPQTest {
 
 
         minPQ.add("A", 1);
-        minPQ.add("B", 2);
-        minPQ.add("C", 3);
-
-        assertEquals("A", minPQ.getSmallest());
-        minPQ.changePriority("A", 2.5);
-        assertEquals("B", minPQ.getSmallest());
+        minPQ.add("B", 5);
+        minPQ.add("C", 1);
+        minPQ.add("D", 6);
+        minPQ.add("E", 5);
+        minPQ.add("F", 6);
+        minPQ.add("G", 3);
+        minPQ.add("H", 7);
+        minPQ.add("I", 7);
+        minPQ.add("J", 8);
+        assertEquals("[(A,1.0), (B,5.0), (C,1.0), (D,6.0), (E,5.0), (F,6.0), (G,3.0), (H,7.0), (I,7.0), (J,8.0)]",minPQ.printableMinPQ());
+        minPQ.changePriority("E",3);
+        assertEquals("[(A,1.0), (E,3.0), (C,1.0), (D,6.0), (B,5.0), (F,6.0), (G,3.0), (H,7.0), (I,7.0), (J,8.0)]",minPQ.printableMinPQ());
+        minPQ.changePriority("A",2);
+        assertEquals("[(C,1.0), (E,3.0), (A,2.0), (D,6.0), (B,5.0), (F,6.0), (G,3.0), (H,7.0), (I,7.0), (J,8.0)]",minPQ.printableMinPQ());
+        minPQ.changePriority("J",2);
+        assertEquals("[(C,1.0), (J,2.0), (A,2.0), (D,6.0), (E,3.0), (F,6.0), (G,3.0), (H,7.0), (I,7.0), (B,5.0)]",minPQ.printableMinPQ());
 
 
     }
