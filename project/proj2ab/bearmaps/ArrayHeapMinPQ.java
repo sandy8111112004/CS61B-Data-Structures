@@ -92,22 +92,41 @@ public class ArrayHeapMinPQ<T> implements ExtrinsicMinPQ<T>{
         }
     }
 
-    @Override
-    public boolean contains(T item){
-        //built-in contains method uses equals method to check if the ArrayList contains certain item
-        return items.contains(new PriorityNode(item,0));
+    private boolean containsHelper(T item, int startInd){
+        PriorityNode temp = new PriorityNode(item, 0);
+        if(items.get(startInd).equals(temp)){
+            return true;
+        }else{
+            return (leftChild(startInd) != -1 && containsHelper(item, leftChild(startInd))) || (rightChild(startInd) != -1 && containsHelper(item, rightChild(startInd)));
+        }
     }
 
-    //for testing purpose
-    public T getNodeValue(int index){
+    @Override
+    public boolean contains(T item){
+        if(items.size() ==0){
+            return false;
+        }
+        return containsHelper(item, 0);
+    }
+
+//    @Override
+//    public boolean contains(T item){
+//        //built-in contains method uses equals method to check if the ArrayList contains certain item
+//        return items.contains(new PriorityNode(item,0));    //runtime O(n)
+//    }
+
+    //for testing purpose only
+    T getNodeValue(int index){
         return items.get(index).getItem();
     }
 
-    public String printableMinPQ(){
+    //for testing purpose only
+    String printableMinPQ(){
         return items.toString();
     }
 
-    public void clear(){
+    //for testing purpose only
+    void clear(){
         items.clear();
     }
 
@@ -144,8 +163,8 @@ public class ArrayHeapMinPQ<T> implements ExtrinsicMinPQ<T>{
             items.get(targetInd).setPriorityNode(priority);
             if(items.get(targetInd).compareTo(items.get(parent(targetInd)))<0){
                 swim(targetInd);
-            }else if(items.get(targetInd).compareTo(items.get(rightChild(targetInd))) > 0 ||
-                     items.get(targetInd).compareTo(items.get(leftChild(targetInd))) > 0){
+            }else if((rightChild(targetInd)!= -1 &&items.get(targetInd).compareTo(items.get(rightChild(targetInd))) > 0 )||
+                    (leftChild(targetInd)!=-1 && items.get(targetInd).compareTo(items.get(leftChild(targetInd))) > 0)){
                 sink(targetInd);
             }
         }else{

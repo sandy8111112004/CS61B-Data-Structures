@@ -1,10 +1,13 @@
 package bearmaps;
 
-
+import edu.princeton.cs.algs4.Stopwatch;
+import java.util.Random;
 import org.junit.Test;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import org.junit.jupiter.api.function.Executable;
 import static org.junit.Assert.assertEquals;
+
+import java.util.HashMap;
 import java.util.NoSuchElementException;
 
 
@@ -48,14 +51,24 @@ public class ArrayHeapMinPQTest {
     @Test
     public void testMinPQContains(){
         minPQ.clear();
-        minPQ.add("My name", 1);
-        minPQ.add("is", 2);
-        minPQ.add("Ming", 3);
+        assertEquals(false,minPQ.contains("A"));
+        minPQ.add("A", 1);
+        minPQ.add("B", 5);
+        minPQ.add("C", 1);
+        minPQ.add("D", 6);
+        minPQ.add("E", 5);
+        minPQ.add("F", 6);
+        minPQ.add("G", 3);
+        minPQ.add("H", 7);
+        minPQ.add("I", 7);
+        minPQ.add("J", 8);
 
-        assertEquals(true,minPQ.contains("My name"));
-        assertEquals(true,minPQ.contains("is"));
-        assertEquals(true,minPQ.contains("Ming"));
-        assertEquals(false,minPQ.contains("Min"));
+        assertEquals(true,minPQ.contains("A"));
+        assertEquals(true,minPQ.contains("B"));
+        assertEquals(true,minPQ.contains("C"));
+        assertEquals(true,minPQ.contains("J"));
+        assertEquals(false,minPQ.contains("K"));
+
     }
 
     @Test
@@ -150,6 +163,17 @@ public class ArrayHeapMinPQTest {
         minPQ.changePriority("J",2);
         assertEquals("[(C,1.0), (J,2.0), (A,2.0), (D,6.0), (E,3.0), (F,6.0), (G,3.0), (H,7.0), (I,7.0), (B,5.0)]",minPQ.printableMinPQ());
 
+        minPQ.clear();
+        Random rand = new Random();
+        for(int i =0;i<100000;i++){
+            minPQ.add(Integer.toString(i),rand.nextInt(1000));
+        }
+        Stopwatch sw = new Stopwatch();
+        for(int i =0;i<1000;i++){
+            minPQ.changePriority(Integer.toString(i),i+2);
+        }
+
+        System.out.println("ChangePriority Total time elapsed: " + sw.elapsedTime() +  " seconds.");
 
     }
 }
