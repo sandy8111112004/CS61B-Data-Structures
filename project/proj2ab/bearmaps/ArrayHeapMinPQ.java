@@ -1,14 +1,16 @@
 package bearmaps;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.NoSuchElementException;
+import java.util.*;
 
 public class ArrayHeapMinPQ<T> implements ExtrinsicMinPQ<T>{
 
     private ArrayList<PriorityNode> items;
-    public ArrayHeapMinPQ(){ items = new ArrayList<>();}
+    private Integer size;
+    private HashMap<T,Integer> itemMapping = new HashMap<>();
+    public ArrayHeapMinPQ(){
+        items = new ArrayList<>();
+        size = 0;
+    }
     private int parent(int index){
         if((index-1)/2 <0){
             return -1;
@@ -17,14 +19,14 @@ public class ArrayHeapMinPQ<T> implements ExtrinsicMinPQ<T>{
         }
     }
     private int leftChild(int index){
-        if(2*index+1 <items.size()) {
+        if(2*index+1 <size) {
             return 2 * index + 1;
         }else{
             return -1;
         }
     }
     private int rightChild(int index){
-        if(2*index+2 < items.size()) {
+        if(2*index+2 < size) {
             return 2 * index + 2;
         }else{
             return -1;
@@ -48,7 +50,7 @@ public class ArrayHeapMinPQ<T> implements ExtrinsicMinPQ<T>{
     }
 
     private void sink(int index){
-        if(items.size()==0){
+        if(size==0){
             return;
         }
 
@@ -88,32 +90,20 @@ public class ArrayHeapMinPQ<T> implements ExtrinsicMinPQ<T>{
             throw new IllegalArgumentException("The ArrayHeapMinPQ contains this item already");
         }else {
             items.add(new PriorityNode(item, priority));
-            swim(items.size() - 1);
+            itemMapping.put(item, size);
+            size = size+1;
+            swim(size - 1);
         }
     }
 
-    private boolean containsHelper(T item, int startInd){
-        PriorityNode temp = new PriorityNode(item, 0);
-        if(items.get(startInd).equals(temp)){
-            return true;
-        }else{
-            return (leftChild(startInd) != -1 && containsHelper(item, leftChild(startInd))) || (rightChild(startInd) != -1 && containsHelper(item, rightChild(startInd)));
-        }
-    }
 
     @Override
     public boolean contains(T item){
-        if(items.size() ==0){
+        if(size ==0){
             return false;
         }
-        return containsHelper(item, 0);
+        return itemMapping.containsKey(item);
     }
-
-//    @Override
-//    public boolean contains(T item){
-//        //built-in contains method uses equals method to check if the ArrayList contains certain item
-//        return items.contains(new PriorityNode(item,0));    //runtime O(n)
-//    }
 
     //for testing purpose only
     T getNodeValue(int index){
@@ -128,11 +118,13 @@ public class ArrayHeapMinPQ<T> implements ExtrinsicMinPQ<T>{
     //for testing purpose only
     void clear(){
         items.clear();
+        itemMapping.clear();
+        size = 0;
     }
 
     @Override
     public T getSmallest(){
-        if(items.size()==0){
+        if(size==0){
             throw new NoSuchElementException("ArrayHeapMinPQ is empty");
         }else {
             return items.get(0).getItem();
@@ -141,12 +133,13 @@ public class ArrayHeapMinPQ<T> implements ExtrinsicMinPQ<T>{
 
     @Override
     public T removeSmallest(){
-        if(items.size()==0){
+        if(size==0){
             throw new NoSuchElementException("ArrayHeapMinPQ is empty");
         }else {
             T result = items.get(0).getItem();
-            swap(0,items.size()-1);
-            items.remove(items.size()-1);
+            swap(0,size-1);
+            items.remove(size-1);
+            size = size-1;
             sink(0);
 
             return result;
@@ -154,12 +147,12 @@ public class ArrayHeapMinPQ<T> implements ExtrinsicMinPQ<T>{
     }
 
     @Override
-    public int size(){return items.size();}
+    public int size(){return size;}
 
     @Override
     public void changePriority(T item, double priority){
         if(contains(item)){
-            int targetInd=items.indexOf(new PriorityNode(item,0));
+            int targetInd=itemMapping.get(item);
             items.get(targetInd).setPriorityNode(priority);
             if(items.get(targetInd).compareTo(items.get(parent(targetInd)))<0){
                 swim(targetInd);
