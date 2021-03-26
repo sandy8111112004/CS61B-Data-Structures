@@ -83,7 +83,12 @@ public class ArrayHeapMinPQ<T> implements ExtrinsicMinPQ<T>{
 
     }
 
-    //assume input item will never be null
+    /**
+     * Add PriorityNode to the MinPQ
+     * May Assume input item will never be null
+     * @param item      the given value of the node
+     * @param priority  the given priority of the node
+     */
     @Override
     public void add(T item, double priority){
         if(contains(item)){
@@ -96,18 +101,17 @@ public class ArrayHeapMinPQ<T> implements ExtrinsicMinPQ<T>{
         }
     }
 
-
+    /**
+     * Check if the item is already in the MinPQ or not
+     * @param item  the given item to be checked
+     * @return      return true if the MinPQ contains the item
+     */
     @Override
     public boolean contains(T item){
         if(size ==0){
             return false;
         }
         return itemMapping.containsKey(item);
-    }
-
-    //for testing purpose only
-    T getNodeValue(int index){
-        return items.get(index).getItem();
     }
 
     //for testing purpose only
@@ -122,6 +126,10 @@ public class ArrayHeapMinPQ<T> implements ExtrinsicMinPQ<T>{
         size = 0;
     }
 
+    /**
+     * get the smallest node and return the item value
+     * @return  return the value(item) of the smallest priority node
+     */
     @Override
     public T getSmallest(){
         if(size==0){
@@ -131,6 +139,10 @@ public class ArrayHeapMinPQ<T> implements ExtrinsicMinPQ<T>{
         }
     }
 
+    /**
+     * remove the smallest node and return the value(item)
+     * @return  return the value(item) of the smallest priority node
+     */
     @Override
     public T removeSmallest(){
         if(size==0){
@@ -141,14 +153,22 @@ public class ArrayHeapMinPQ<T> implements ExtrinsicMinPQ<T>{
             items.remove(size-1);
             size = size-1;
             sink(0);
-
             return result;
         }
     }
 
+    /**
+     * return the size of the MinPQ
+     * @return  return the integer type of the size
+     */
     @Override
     public int size(){return size;}
 
+    /**
+     * change the priority of the node that's in the MinPQ
+     * @param item      the value whose priority is going to be change
+     * @param priority  the new priority of the node
+     */
     @Override
     public void changePriority(T item, double priority){
         if(contains(item)){

@@ -18,9 +18,6 @@ public class ArrayHeapMinPQTest {
         minPQ.add("A", 1);
         minPQ.add("B", 5);
         minPQ.add("C", 1);
-        assertEquals("A",minPQ.getNodeValue(0));
-        assertEquals("B",minPQ.getNodeValue(1));
-        assertEquals("C",minPQ.getNodeValue(2));
         minPQ.add("D", 6);
         minPQ.add("E", 5);
         minPQ.add("F", 6);
@@ -30,9 +27,6 @@ public class ArrayHeapMinPQTest {
         minPQ.add("J", 8);
         assertEquals("[(A,1.0), (B,5.0), (C,1.0), (D,6.0), (E,5.0), (F,6.0), (G,3.0), (H,7.0), (I,7.0), (J,8.0)]",minPQ.printableMinPQ());
         minPQ.add("K", 3);
-        assertEquals("K",minPQ.getNodeValue(1));
-        assertEquals("B",minPQ.getNodeValue(4));
-        assertEquals("E",minPQ.getNodeValue(10));
         assertEquals("[(A,1.0), (K,3.0), (C,1.0), (D,6.0), (B,5.0), (F,6.0), (G,3.0), (H,7.0), (I,7.0), (J,8.0), (E,5.0)]",minPQ.printableMinPQ());
 
 
