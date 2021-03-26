@@ -1,14 +1,16 @@
 package bearmaps;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.NoSuchElementException;
+import java.util.*;
 
 public class ArrayHeapMinPQ<T> implements ExtrinsicMinPQ<T>{
 
     private ArrayList<PriorityNode> items;
-    public ArrayHeapMinPQ(){ items = new ArrayList<>();}
+    private Integer size;
+    private HashMap<T,Integer> itemMapping = new HashMap<>();
+    public ArrayHeapMinPQ(){
+        items = new ArrayList<>();
+        size = 0;
+    }
     private int parent(int index){
         if((index-1)/2 <0){
             return -1;
@@ -17,14 +19,14 @@ public class ArrayHeapMinPQ<T> implements ExtrinsicMinPQ<T>{
         }
     }
     private int leftChild(int index){
-        if(2*index+1 <items.size()) {
+        if(2*index+1 <size) {
             return 2 * index + 1;
         }else{
             return -1;
         }
     }
     private int rightChild(int index){
-        if(2*index+2 < items.size()) {
+        if(2*index+2 < size) {
             return 2 * index + 2;
         }else{
             return -1;
@@ -48,7 +50,7 @@ public class ArrayHeapMinPQ<T> implements ExtrinsicMinPQ<T>{
     }
 
     private void sink(int index){
-        if(items.size()==0){
+        if(size==0){
             return;
         }
 
@@ -81,71 +83,101 @@ public class ArrayHeapMinPQ<T> implements ExtrinsicMinPQ<T>{
 
     }
 
-    //assume input item will never be null
+    /**
+     * Add PriorityNode to the MinPQ
+     * May Assume input item will never be null
+     * @param item      the given value of the node
+     * @param priority  the given priority of the node
+     */
     @Override
     public void add(T item, double priority){
         if(contains(item)){
             throw new IllegalArgumentException("The ArrayHeapMinPQ contains this item already");
         }else {
             items.add(new PriorityNode(item, priority));
-            swim(items.size() - 1);
+            itemMapping.put(item, size);
+            size = size+1;
+            swim(size - 1);
         }
     }
 
+    /**
+     * Check if the item is already in the MinPQ or not
+     * @param item  the given item to be checked
+     * @return      return true if the MinPQ contains the item
+     */
     @Override
     public boolean contains(T item){
-        //built-in contains method uses equals method to check if the ArrayList contains certain item
-        return items.contains(new PriorityNode(item,0));
+        if(size ==0){
+            return false;
+        }
+        return itemMapping.containsKey(item);
     }
 
-    //for testing purpose
-    public T getNodeValue(int index){
-        return items.get(index).getItem();
-    }
-
-    public String printableMinPQ(){
+    //for testing purpose only
+    String printableMinPQ(){
         return items.toString();
     }
 
-    public void clear(){
+    //for testing purpose only
+    void clear(){
         items.clear();
+        itemMapping.clear();
+        size = 0;
     }
 
+    /**
+     * get the smallest node and return the item value
+     * @return  return the value(item) of the smallest priority node
+     */
     @Override
     public T getSmallest(){
-        if(items.size()==0){
+        if(size==0){
             throw new NoSuchElementException("ArrayHeapMinPQ is empty");
         }else {
             return items.get(0).getItem();
         }
     }
 
+    /**
+     * remove the smallest node and return the value(item)
+     * @return  return the value(item) of the smallest priority node
+     */
     @Override
     public T removeSmallest(){
-        if(items.size()==0){
+        if(size==0){
             throw new NoSuchElementException("ArrayHeapMinPQ is empty");
         }else {
             T result = items.get(0).getItem();
-            swap(0,items.size()-1);
-            items.remove(items.size()-1);
+            swap(0,size-1);
+            items.remove(size-1);
+            size = size-1;
             sink(0);
-
             return result;
         }
     }
 
+    /**
+     * return the size of the MinPQ
+     * @return  return the integer type of the size
+     */
     @Override
-    public int size(){return items.size();}
+    public int size(){return size;}
 
+    /**
+     * change the priority of the node that's in the MinPQ
+     * @param item      the value whose priority is going to be change
+     * @param priority  the new priority of the node
+     */
     @Override
     public void changePriority(T item, double priority){
         if(contains(item)){
-            int targetInd=items.indexOf(new PriorityNode(item,0));
+            int targetInd=itemMapping.get(item);
             items.get(targetInd).setPriorityNode(priority);
             if(items.get(targetInd).compareTo(items.get(parent(targetInd)))<0){
                 swim(targetInd);
-            }else if(items.get(targetInd).compareTo(items.get(rightChild(targetInd))) > 0 ||
-                     items.get(targetInd).compareTo(items.get(leftChild(targetInd))) > 0){
+            }else if((rightChild(targetInd)!= -1 &&items.get(targetInd).compareTo(items.get(rightChild(targetInd))) > 0 )||
+                    (leftChild(targetInd)!=-1 && items.get(targetInd).compareTo(items.get(leftChild(targetInd))) > 0)){
                 sink(targetInd);
             }
         }else{
