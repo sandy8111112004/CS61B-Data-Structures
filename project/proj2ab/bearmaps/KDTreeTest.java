@@ -95,7 +95,7 @@ public class KDTreeTest {
             Double y = rand.nextDouble()*1000;
             Point pKDTree = nn.nearest(x,y);
             Point pNaive = nn2.nearest(x,y);
-            assertEquals(pNaive,pKDTree);
+            assertEquals("x= "+x+"; y= "+y,pNaive,pKDTree);
         }
         //Check time difference
         Stopwatch sw = new Stopwatch();

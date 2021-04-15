@@ -15,7 +15,6 @@ public class KDTree implements PointSet{
     @Override
     public Point nearest(double x, double y){
         Point targetPoint = new Point(x,y);
-        //if(contains(targetPoint)) return targetPoint;
         Node best = nearestHelper(root, targetPoint, root);
         return best.key;
     }
@@ -100,7 +99,7 @@ public class KDTree implements PointSet{
             prefix.append("-- ");
         }
         if(x==null) {
-            System.out.println(prefix.toString());
+            System.out.println(prefix.toString()+"null");
             return;
         }
         else {
