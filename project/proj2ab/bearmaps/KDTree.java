@@ -15,9 +15,46 @@ public class KDTree implements PointSet{
     @Override
     public Point nearest(double x, double y){
         Point targetPoint = new Point(x,y);
-        if(contains(targetPoint)) return targetPoint;
+        //if(contains(targetPoint)) return targetPoint;
+        Node best = nearestHelper(root, targetPoint, root);
+        return best.key;
+    }
 
-        return new Point(0,0);
+    private Node nearestHelper(Node n, Point goal, Node best){
+        if(n==null) return best;
+        Node goodSide;
+        Node badSide;
+        if(Point.distance(n.key,goal) < Point.distance(best.key,goal)) best = n;
+        if(n.status==0){
+            if(goal.getX() >= n.key.getX()){
+                goodSide = n.right;
+                badSide = n.left;
+            }else{
+                goodSide = n.left;
+                badSide = n.right;
+            }
+            best = nearestHelper(goodSide, goal, best);
+            if(Point.distance(best.key,goal) > Point.distance(new Point(n.key.getX(),goal.getY()),goal)){
+                best = nearestHelper(badSide, goal, best);
+            }
+        }else{
+            if(goal.getY() >= n.key.getY()){
+                goodSide = n.right;
+                badSide = n.left;
+            }else{
+                goodSide = n.left;
+                badSide = n.right;
+            }
+            best = nearestHelper(goodSide, goal, best);
+            if(Point.distance(best.key,goal) > Point.distance(new Point(goal.getX(),n.key.getY()),goal)){
+                best = nearestHelper(badSide, goal, best);
+            }
+        }
+        //inefficient way
+//        best = nearestHelper(goodSide, goal, best);
+//        best = nearestHelper(badSide, goal, best);
+
+        return best;
     }
 
     public void clear(){
@@ -147,5 +184,6 @@ public class KDTree implements PointSet{
         public int hashCode() {
             return key.hashCode();
         }
+
     }
 }
